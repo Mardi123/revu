@@ -2,7 +2,9 @@
 
 The Windows application reads the local Git repository you select and saves review state as plaintext in your operating-system user-config directory, normally `%APPDATA%\revu`. The bundled demo uses an illustrative repository. The process listens on `127.0.0.1`, not a public network interface. Do not expose this local server through a public tunnel.
 
-There is no Revu telemetry, account, or model API call in version 0.5.0. Copying or downloading a handoff creates material you can choose to share. When you explicitly load a GitHub PR preview, the installed GitHub CLI uses your existing authentication to contact GitHub. It does not upload the local repository. Your use of GitHub and any external coding agent is subject to those providers' policies.
+The browser app downloads its compiled engine and static assets from GitHub Pages. Imported files, diffs, and review state stay in tab memory. Refreshing or closing the tab clears them. Exported backups contain the imported code and notes; store them privately. Browser imports are not uploaded, and there is no cloud storage or automatic persistence.
+
+There is no Revu telemetry, account, or model API call in version 0.6.0. Copying or downloading a handoff creates material you can choose to share. When you explicitly load a GitHub PR preview, the installed GitHub CLI uses your existing authentication to contact GitHub. It does not upload the local repository. Your use of GitHub and any external coding agent is subject to those providers' policies.
 
 The public website, releases, and feedback repository are hosted on GitHub. GitHub may process ordinary request and account data under its own policies. The website includes no analytics scripts, advertising, tracking pixels, or form collection. Its video and images are hosted with the website.
 
