@@ -1,0 +1,32 @@
+{
+  "rules": [
+    {
+      "id": "tenant-db-access",
+      "title": "Check tenant scoping on direct database access",
+      "pattern": "db\\.query\\s*\\(",
+      "severity": "medium",
+      "pathPrefix": "src/",
+      "extensions": [".ts", ".js"],
+      "why": "This team requires all tenant-owned queries to be scoped through the authenticated tenant. Direct access needs explicit verification.",
+      "verify": [
+        "Identify the tenant predicate or tenant-scoped client used by this query.",
+        "Run a cross-tenant access test with a valid user and a different tenant's resource ID."
+      ],
+      "example": "const orders = await tenantDb(actor.tenantId).orders.findById(orderId);"
+    },
+    {
+      "id": "no-direct-client-price",
+      "title": "Payment totals must come from server-owned data",
+      "pattern": "req\\.body\\.(amount|price|total)",
+      "severity": "high",
+      "pathPrefix": "src/billing/",
+      "extensions": [".ts"],
+      "why": "The client may request an order, but it must not choose the amount that is charged.",
+      "verify": [
+        "Send a smaller client amount and confirm the server ignores it or rejects the request.",
+        "Verify the authoritative total includes server-side discounts, tax, and currency rounding."
+      ],
+      "example": "const amount = calculateTotalFromServerCatalog(order);"
+    }
+  ]
+}

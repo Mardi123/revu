@@ -1,0 +1,38 @@
+name: Bug or review false positive
+description: Share a reproducible problem without private code or secrets.
+title: "[Preview feedback] "
+body:
+  - type: markdown
+    attributes:
+      value: "Thanks for trying Revu. This is a public issue. Do not include credentials, private source, session URLs, or customer data. Use a small synthetic example."
+  - type: input
+    id: version
+    attributes:
+      label: Revu version and Windows version
+      placeholder: "Revu 0.5.0, Windows 11 x64"
+    validations:
+      required: true
+  - type: dropdown
+    id: kind
+    attributes:
+      label: Feedback type
+      options:
+        - App bug or setup issue
+        - Review false positive
+        - Review missed an issue
+        - Workflow or feature suggestion
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps and synthetic reproduction
+      description: "Include the rule name and file type when reporting review results."
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected versus actual behavior
+    validations:
+      required: true
