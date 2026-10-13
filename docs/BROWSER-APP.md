@@ -1,6 +1,22 @@
 # Revu Web
 
-Open https://mardi123.github.io/revu/app/ in a modern browser. Choose **Try the sample review** for an immediate example, or import your own material. The Go review engine runs in a WebAssembly worker on your device.
+Open https://mardi123.github.io/revu/app/ in a modern browser. Paste a GitHub pull request link and choose **Open GitHub review**. Public PRs need no token. Choose **Try the sample review** for an immediate example. The Go review engine runs in a WebAssembly worker on your device.
+
+## Open a GitHub pull request
+
+Revu fetches PR details, every changed-file page, the text diff, and current source pinned by Git blob SHA. It optionally finds up to 12 related tests and project instruction files at the PR head. The title, original PR link, and reviewed head commit remain visible; backups retain that provenance. Exports identify the PR and commit. Opening the PR again fetches a fresh review; changes are not watched automatically.
+
+For private repositories or higher API limits, expand **Private repository or higher API limits?** and supply a fine-grained token with **Contents: Read-only** and **Pull requests: Read-only** for the selected repository. Organization approval and access to a fork may be required. This preview uses a token input, not OAuth sign-in. The token is sent only in the Authorization header to `https://api.github.com`, for this import. It is cleared from the input when fetching starts, never persisted, and excluded from exports/backups. API requests are GET-only and redirects are rejected.
+
+The importer verifies the PR head, base, file count, and update time again after downloading. A moving PR or incomplete/truncated diff is rejected without replacing an existing review. Public GitHub API quotas can be exhausted; the UI explains quota and permission failures. Optional context is bounded and selected by filename: search covers only fetched files, not the full repository or a semantic dependency graph.
+
+GitHub imports support up to 300 changed text files, 4 MiB of diff, and 16 MiB of source (2 MiB per file). Binary, missing/truncated patches, non-UTF-8 source, pure renames, mode-only changes, and empty-file-only changes are rejected explicitly; they are not silently marked reviewed. Renames with textual changes are reviewed under the current filename.
+
+GitHub documents [browser CORS](https://docs.github.com/en/rest/using-the-rest-api/using-cors-and-jsonp-to-make-cross-origin-requests), [PR metadata and files](https://docs.github.com/en/rest/pulls/pulls), and [source blobs](https://docs.github.com/en/rest/git/blobs).
+
+## Import local material instead
+
+Expand **Import local files or a diff instead**.
 
 1. Export a text diff: `git diff --no-ext-diff --no-renames HEAD > changes.diff`. This compares the working tree to HEAD and excludes untracked files.
 2. Select the `.diff` or `.patch` file, or paste its contents.
@@ -16,7 +32,7 @@ Limits: 2,000 text source files, 2 MiB per file, 16 MiB total, and a 4 MiB patch
 
 Imported code and notes remain in tab memory and are not uploaded. The site has no analytics, accounts, or cloud review storage. Static assets are served by GitHub Pages. Ordinary website requests remain subject to GitHub's policies. Closing or refreshing the tab clears the review unless you export a backup.
 
-Local Git access and authenticated GitHub CLI PR previews require the Windows desktop edition. The browser app does not connect to GitHub credentials, local processes, or a hosted repository server.
+Local Git access and authenticated GitHub CLI PR previews require the Windows desktop edition. The browser app uses the GitHub REST API directly for PR imports; it does not run local processes or use a Revu repository server.
 
 ## Windows launcher fix in 0.6.0
 

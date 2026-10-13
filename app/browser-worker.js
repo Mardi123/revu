@@ -1,10 +1,10 @@
 /* Browser-local compiled engine. Imported source is never sent over HTTP. */
-importScripts('./wasm_exec.js');
+importScripts('./wasm_exec.js?v=0.6.1');
 let initialized;
 function initialize(){
  if(!initialized)initialized=(async()=>{
   const go=new Go();
-  const response=await fetch('./revu-engine.wasm');
+  const response=await fetch('./revu-engine.wasm?v=0.6.1');
   if(!response.ok)throw Error('Unable to download the review engine. Refresh and try again.');
   const wasm=await WebAssembly.instantiate(await response.arrayBuffer(),go.importObject);
   go.run(wasm.instance);

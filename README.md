@@ -12,7 +12,7 @@ This public repository contains the website, documentation, and release download
 
 ## Start in your browser
 
-Open [Revu Web](https://mardi123.github.io/revu/app/) and try the sample, paste a unified Git diff, or select text files. The same Go review engine runs in WebAssembly on your device. No account or installation is required, and imported code is not uploaded.
+Open [Revu Web](https://mardi123.github.io/revu/app/) and paste a GitHub pull request link. Revu automatically fetches its metadata, diff, and changed source. Public PRs need no token; private repositories accept a read-only token for the current import. Manual files/diffs and the included sample remain available. The same Go review engine runs in WebAssembly on your device. No account or installation is required, and imported code is not uploaded.
 
 Use a diff plus matching current source files for full-source navigation, related callers, primitives, and context estimates. File-only imports are current snapshots and cannot detect removed protections. Re-import changed code to update the review. Export a review backup before refreshing or closing the tab; the backup contains your code and notes. See [browser guide](docs/BROWSER-APP.md).
 
@@ -44,7 +44,7 @@ The repository needs an initial commit. Revu compares HEAD with staged, unstaged
 
 The desktop build is Windows x64 only and unsigned; the browser app requires a modern WebAssembly-capable browser. Windows may show an unknown-publisher warning. Verify the official download and published SHA-256 before deciding whether to run it; Revu does not ask you to disable system protections.
 
-Flags are not confirmed defects or a complete security audit. Context token counts are estimates, not actual provider billing. No agent executes automatically. Revu does not submit GitHub reviews, edit source, stage, commit, push, or deploy. The browser app analyzes explicit imports; local Git comparisons and GitHub CLI preview require the desktop app. Neither edition watches files automatically. See [feature details](docs/ADVANCED-FEATURES.md) and [data handling](PRIVACY.md).
+Flags are not confirmed defects or a complete security audit. Context token counts are estimates, not actual provider billing. No agent executes automatically. Revu does not submit GitHub reviews, edit source, stage, commit, push, or deploy. The browser app analyzes explicit imports; GitHub PR imports work directly in the browser through the REST API; local Git comparisons and GitHub CLI preview require the desktop app. Neither edition watches files automatically. See [feature details](docs/ADVANCED-FEATURES.md) and [data handling](PRIVACY.md).
 
 ## Demo
 
